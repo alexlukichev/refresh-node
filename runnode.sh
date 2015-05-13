@@ -22,7 +22,8 @@ sleep 1
 while true; do
   if [ -f .restart ]; then
     if [ -f .pid ]; then
-      kill -2 `cat .pid` && rm -f .pid .restart
+      kill -2 `cat .pid`
+      rm -f .pid .restart
     fi
   fi
   if [ ! -f .pid ] || [ ! ps -p `cat .pid` >/dev/null 2>&1 ]; then
