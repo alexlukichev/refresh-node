@@ -26,7 +26,7 @@ while true; do
       rm -f .pid .restart
     fi
   fi
-  if [ ! -f .pid ] || [ ! ps -p `cat .pid` >/dev/null 2>&1 ]; then
+  if [ ! -f .pid ] || ! ps -p `cat .pid` >/dev/null 2>&1; then
     rm -f .pid
     start_node
   fi
