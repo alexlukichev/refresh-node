@@ -1,17 +1,20 @@
 #!/bin/bash
 
+wd=${NODE_WORKDIR:-.}
+exec=${NODE_SCRIPT:-server.js}
+
 function start_node() {
   if [ -f .lock ]; then
     return
   fi
   touch .lock
   echo "(Re)starting node..."
-  npm install && npm prune
+  (cd $wd; npm install && npm prune)
 #  while netstat -ln | grep :5000; do 
 #    echo "waiting for port 5000..."
 #    sleep 0.5; 
 #  done
-  node server.js & echo $! > .pid
+  (cd $wd; node $exec & echo $! > .pid)
   echo "node started, pid=`cat .pid`"
   rm -f .lock
 }
